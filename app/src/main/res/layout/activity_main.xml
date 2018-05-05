@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Activities.MainActivity"
     android:layout_margin="10dp">
 
     <ListView
-        android:id="@+id/categoryListView"
+        android:id="@+id/itemListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

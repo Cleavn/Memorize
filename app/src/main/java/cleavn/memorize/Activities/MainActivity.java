@@ -1,5 +1,6 @@
-package cleavn.memorize;
+package cleavn.memorize.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,12 +10,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import cleavn.memorize.Adapter.CategoryAdapter;
+import cleavn.memorize.Objects.Category;
+import cleavn.memorize.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Category> categories;
-    private CategoryAdapter categoryAdapter;
-
-    Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         //dummycategories
         categories = new ArrayList<Category>();
-        categories.add(new Category("Maths", "formular", Color.BLUE));
+        categories.add(new Category(0, "Maths", "formular", Color.BLUE));
         categories.add(new Category("English", "vocabulary", Color.YELLOW));
         categories.add(new Category("English: Business", "vocabulary", Color.YELLOW));
         categories.add(new Category("Spanish", "description"));
@@ -44,15 +46,17 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO: SQL
 
-        categoryAdapter = new CategoryAdapter(this, categories);
-        ListView listView = (ListView) findViewById(R.id.categoryListView);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
+        ListView listView = (ListView) findViewById(R.id.itemListView);
         listView.setAdapter(categoryAdapter);
 
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        // TODO: Intent to ToonActivity
+                        Intent myIntent = new Intent(MainActivity.this, ToonActivity.class);
+                        myIntent.putExtra("CategoryID", id); //TODO: extract categoryID and parse here
+                        startActivity(myIntent);
                     }
                 }
         );

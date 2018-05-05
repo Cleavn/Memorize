@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Memorize</string>
+    <string name="app_name">MemoQ</string>
     <string name="categorydescr">categoryDescr</string>
     <string name="categoryname">categoryName</string>
-    <string name="StartMemorize">Start Memorize</string>
+    <string name="StartMemoQ">Start MemoQ</string>
+    <string name="cardname">cardName</string>
+    <string name="nextButton">Next</string>
+    <string name="qaText">QA-Text</string>
 </resources>

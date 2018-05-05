@@ -1,4 +1,4 @@
-package cleavn.memorize;
+package cleavn.memorize.Objects;
 
 import static android.graphics.Color.WHITE;
 
@@ -7,16 +7,21 @@ public class Category {
     private int _id;
     private int categoryColor;
 
-    public Category(String _categoryname, String categoryDescr){
-        this._id = 0;
-        this.categoryName = _categoryname;
+    public Category(String categoryName, String categoryDescr){
+        this.categoryName = categoryName;
         this.categoryDescr = categoryDescr;
         this.categoryColor = WHITE;
     }
 
-    public Category(String _categoryname, String categoryDescr, int categoryColor){
-        this._id = 0;
-        this.categoryName = _categoryname;
+    public Category(String categoryName, String categoryDescr, int categoryColor){
+        this.categoryName = categoryName;
+        this.categoryDescr = categoryDescr;
+        this.categoryColor = categoryColor;
+    }
+
+    public Category(int _id, String categoryName, String categoryDescr, int categoryColor){
+        this._id = _id;
+        this.categoryName = categoryName;
         this.categoryDescr = categoryDescr;
         this.categoryColor = categoryColor;
     }
@@ -25,8 +30,8 @@ public class Category {
         return categoryName;
     }
 
-    public void setCategoryName(String _categoryname) {
-        this.categoryName = _categoryname;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getCategoryDescr() {

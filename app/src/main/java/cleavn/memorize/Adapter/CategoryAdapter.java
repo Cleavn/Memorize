@@ -1,4 +1,4 @@
-package cleavn.memorize;
+package cleavn.memorize.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import cleavn.memorize.Objects.Category;
+import cleavn.memorize.R;
 
 public class CategoryAdapter extends ArrayAdapter<Category> {
 
@@ -26,7 +29,6 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         // Get the data item for this position
         Category category = getItem(position);
         ViewHolder viewHolder;
