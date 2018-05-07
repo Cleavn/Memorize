@@ -44,6 +44,8 @@ public class ToonActivity extends AppCompatActivity {
         cards.add(new Card("P-Q-Formel","dummyformel", 0));
         cards.add(new Card("Test2","Testantwort", 0));
 
+        //TODO: DB-Logic
+
         categoryCards = getCategoryCards(categoryId);
         CardAdapter cardAdapter = new CardAdapter(this, categoryCards);
         ListView listView = (ListView) findViewById(R.id.itemListView);
@@ -53,8 +55,9 @@ public class ToonActivity extends AppCompatActivity {
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //TODO: setOnItemClickListener
-                        ShowPopup();
+                        //TODO: Swipe-Flip animation for card/fragment
+                        //TODO: Replace Dialog with two Fragments?
+                        ShowPopup(); //parse question and answer
                     }
                 });
     }

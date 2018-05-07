@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         categories.add(new Category("Cat8", "description"));
         categories.add(new Category("Cat9", "description"));
 
-        //TODO: SQL
+        //TODO: DB-Logic
 
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         ListView listView = (ListView) findViewById(R.id.itemListView);
