@@ -135,6 +135,8 @@ public class ToonActivity extends AppCompatActivity implements GestureDetector.O
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         boolean result = false;
 
+        /*
+        // Define right swipe
         final int SWIPE_THRESHOLD = 100;
         final int SWIPE_VELOCITY_THRESHOLD = 100;
 
@@ -153,6 +155,9 @@ public class ToonActivity extends AppCompatActivity implements GestureDetector.O
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+        */
+
+        flipCard();
         return result;
     }
 

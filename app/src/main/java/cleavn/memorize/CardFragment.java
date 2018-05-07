@@ -13,15 +13,6 @@ import android.widget.TextView;
 
 import cleavn.memorize.Objects.Card;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link CardFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link CardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CardFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +23,7 @@ public class CardFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private  RelativeLayout fragmentBackground;
     private TextView questionTextView;
     private ImageButton closeBtn;
 
@@ -70,9 +62,9 @@ public class CardFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_fragment, container, false);
 
-        TextView questionTextView = (TextView) view.findViewById(R.id.qaText);
-        ImageButton closeBtn = (ImageButton) view.findViewById(R.id.closeCardButton);
-        RelativeLayout fragmentBackground = (RelativeLayout) view.findViewById(R.id.fragmentBackground);
+        questionTextView = (TextView) view.findViewById(R.id.qaText);
+        closeBtn = (ImageButton) view.findViewById(R.id.closeCardButton);
+        fragmentBackground = (RelativeLayout) view.findViewById(R.id.fragmentBackground);
 
         questionTextView.setText(mQuestion);
 
@@ -83,11 +75,12 @@ public class CardFragment extends Fragment {
             }
         });
 
-        //TODO: replace
+        // Click on background removes fragments
+        fragmentBackground.setSoundEffectsEnabled(false);
         fragmentBackground.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do nothing
+                getFragmentManager().popBackStackImmediate();
             }
         });
 
