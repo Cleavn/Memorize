@@ -60,5 +60,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        //TODO: listView.setOnFlingListener - fling to show two buttons "edit" and "delete"
+        //TODO: Deletebutton - pops dialog for confirmation
     }
 }

@@ -1,38 +1,44 @@
 package cleavn.memorize.Activities;
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cleavn.memorize.Adapter.CardAdapter;
+import cleavn.memorize.CardFragment;
 import cleavn.memorize.Objects.Card;
 import cleavn.memorize.R;
 
-public class ToonActivity extends AppCompatActivity {
+public class ToonActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, CardFragment.OnFragmentInteractionListener {
 
     private ArrayList<Card> cards;
     private ArrayList<Card> categoryCards;
 
-    Dialog myDialog;
-    TextView qaTextView;
-    ImageButton btnClose;
+    private GestureDetectorCompat gestureDetector;
+
+    Card card;
+    // Dialog myDialog;
+
+    boolean mShowingBack;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myDialog = new Dialog(this);
+        this.gestureDetector = new GestureDetectorCompat(this,this);
+
+        // myDialog = new Dialog(this);
 
         int categoryId = getIntent().getExtras().getInt("CategoryID");
 
@@ -57,7 +63,10 @@ public class ToonActivity extends AppCompatActivity {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //TODO: Swipe-Flip animation for card/fragment
                         //TODO: Replace Dialog with two Fragments?
-                        ShowPopup(); //parse question and answer
+
+                        card = cards.get(position);
+                        openFrontCardFragment(card);
+
                     }
                 });
     }
@@ -73,20 +82,88 @@ public class ToonActivity extends AppCompatActivity {
         return categoryCards;
     }
 
-    public void ShowPopup(){
-        myDialog.setContentView(R.layout.popup_card);
-        qaTextView = (TextView) myDialog.findViewById(R.id.qaText);
-        btnClose = (ImageButton) myDialog.findViewById(R.id.closeCardButton);
+    public void openFrontCardFragment(Card card) {
+        CardFragment frontFragment = CardFragment.newInstance(card, "front");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
+    }
 
-        //qaTextView.setText(qaText);
+    public void flipCard() {
+        if(mShowingBack) {
+            getFragmentManager().popBackStack();
+            return;
+        }else{
+            CardFragment backFragment = CardFragment.newInstance(card, "back");
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
+            transaction.replace(R.id.fragmentContainer, backFragment);
+            transaction.addToBackStack(null);
+            transaction.add(R.id.fragmentContainer, backFragment, "BACKCARD_FRAGMENT").commit();
 
-        btnClose.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
+            mShowingBack = true;
+        }
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        boolean result = false;
+
+        final int SWIPE_THRESHOLD = 100;
+        final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+        try {
+            float diffY = e2.getY() - e1.getY();
+            float diffX = e2.getX() - e1.getX();
+            if (Math.abs(diffX) > Math.abs(diffY)) {
+                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffX > 0) {
+                        // onSwipeRight
+                        flipCard();
+                    }
+                    result = true;
+                }
             }
-        });
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        onBackPressed();
     }
 }
