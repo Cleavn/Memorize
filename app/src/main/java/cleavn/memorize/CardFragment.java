@@ -1,11 +1,10 @@
 package cleavn.memorize;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -26,6 +25,7 @@ public class CardFragment extends Fragment {
     private  RelativeLayout fragmentBackground;
     private TextView questionTextView;
     private ImageButton closeBtn;
+    private CardView cardview;
 
     public CardFragment() {
         // Required empty public constructor
@@ -65,6 +65,7 @@ public class CardFragment extends Fragment {
         questionTextView = (TextView) view.findViewById(R.id.qaText);
         closeBtn = (ImageButton) view.findViewById(R.id.closeCardButton);
         fragmentBackground = (RelativeLayout) view.findViewById(R.id.fragmentBackground);
+        cardview = (CardView) view.findViewById(R.id.cardView);
 
         questionTextView.setText(mQuestion);
 
@@ -81,6 +82,7 @@ public class CardFragment extends Fragment {
             }
         });
 
+        // TODO: Bug - same as closeBtn, should also pop all fragment backstacks
         // Click on background removes fragments
         fragmentBackground.setSoundEffectsEnabled(false);
         fragmentBackground.setOnClickListener(new View.OnClickListener(){
@@ -91,7 +93,7 @@ public class CardFragment extends Fragment {
         });
 
         // onTouchListener for fragments TODO: Bug - background spins with card
-        view.setOnTouchListener(new View.OnTouchListener(){
+        cardview.setOnTouchListener(new View.OnTouchListener(){
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 ToonActivity parentActivity = (ToonActivity) getActivity();
