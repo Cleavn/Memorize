@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,27 +17,27 @@ import java.util.ArrayList;
 
 import cleavn.memorize.Adapter.CardAdapter;
 import cleavn.memorize.CardFragment;
+import cleavn.memorize.MyGestureListener;
 import cleavn.memorize.Objects.Card;
 import cleavn.memorize.R;
 
-public class ToonActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, CardFragment.OnFragmentInteractionListener {
+public class ToonActivity extends AppCompatActivity implements CardFragment.OnFragmentInteractionListener {
 
     private ArrayList<Card> cards;
     private ArrayList<Card> categoryCards;
+    public GestureDetector gestureDetector;
+    private Card card;
 
-    private GestureDetectorCompat gestureDetector;
-
-    Card card;
-    // Dialog myDialog;
-
-    boolean mShowingBack;
+    private boolean mShowingBack;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.gestureDetector = new GestureDetectorCompat(this,this);
+        cards = new ArrayList<Card>();
+
+        this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
 
         // myDialog = new Dialog(this);
 
@@ -46,7 +47,6 @@ public class ToonActivity extends AppCompatActivity implements GestureDetector.O
         //TODO: FloatingActionButton/Toolbarbutton - to start Learningsession
 
         //dummycards
-        cards = new ArrayList<Card>();
         cards.add(new Card("P-Q-Formel","dummyformel", 0));
         cards.add(new Card("Test2","Testantwort", 0));
 
@@ -86,85 +86,24 @@ public class ToonActivity extends AppCompatActivity implements GestureDetector.O
         CardFragment frontFragment = CardFragment.newInstance(card, "front");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.addToBackStack(null);
+        transaction.addToBackStack("FRONTCARD_FRAGMENT");
         transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
     }
 
+    //TODO: flip anpassen je nach richtung - links/rechts
     public void flipCard() {
         if(mShowingBack) {
-            getFragmentManager().popBackStack();
-            return;
-        }else{
+            getSupportFragmentManager().popBackStackImmediate();
+            mShowingBack = false;
+        } else {
             CardFragment backFragment = CardFragment.newInstance(card, "back");
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
-            transaction.replace(R.id.fragmentContainer, backFragment);
-            transaction.addToBackStack(null);
-            transaction.add(R.id.fragmentContainer, backFragment, "BACKCARD_FRAGMENT").commit();
-
+            transaction.addToBackStack("BACKCARD_FRAGMENT");
+            transaction.replace(R.id.fragmentContainer, backFragment, "BACKCARD_FRAGMENT").commit();
             mShowingBack = true;
         }
-    }
-
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        boolean result = false;
-
-        /*
-        // Define right swipe
-        final int SWIPE_THRESHOLD = 100;
-        final int SWIPE_VELOCITY_THRESHOLD = 100;
-
-        try {
-            float diffY = e2.getY() - e1.getY();
-            float diffX = e2.getX() - e1.getX();
-            if (Math.abs(diffX) > Math.abs(diffY)) {
-                if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffX > 0) {
-                        // onSwipeRight
-                        flipCard();
-                    }
-                    result = true;
-                }
-            }
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-        */
-
-        flipCard();
-        return result;
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
+        Log.d("FLIP", "flipCard:" + mShowingBack);
     }
 
     @Override

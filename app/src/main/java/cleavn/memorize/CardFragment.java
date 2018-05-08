@@ -1,26 +1,26 @@
 package cleavn.memorize;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import cleavn.memorize.Activities.ToonActivity;
 import cleavn.memorize.Objects.Card;
 
 public class CardFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameters
     private static final String TEXT = "text";
-
-    // TODO: Rename and change types of parameters
     private String mQuestion;
-
     private OnFragmentInteractionListener mListener;
 
     private  RelativeLayout fragmentBackground;
@@ -68,9 +68,15 @@ public class CardFragment extends Fragment {
 
         questionTextView.setText(mQuestion);
 
+        // Pops whole Fragment backstack
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
+                //TODO: Bug - when pressed in cardback-mode animation gets called and boolean set wrongly
+                getFragmentManager().popBackStack( getFragmentManager().getBackStackEntryAt(0).getId(), getFragmentManager().POP_BACK_STACK_INCLUSIVE);
+                */
+
                 getFragmentManager().popBackStackImmediate();
             }
         });
@@ -84,16 +90,18 @@ public class CardFragment extends Fragment {
             }
         });
 
-        //TODO: view.swipeRight() ...
+        // onTouchListener for fragments TODO: Bug - background spins with card
+        view.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ToonActivity parentActivity = (ToonActivity) getActivity();
+                parentActivity.gestureDetector.onTouchEvent(event);
+
+                return true;
+            }
+        });
 
         return view;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -124,7 +132,6 @@ public class CardFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

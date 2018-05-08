@@ -23,11 +23,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        categories = new ArrayList<Category>();
+
         //TODO: FloatingActionButton/Toolbarbutton - to create Categories
         //TODO: FloatingActionButton/Toolbarbutton - to start Learningsession
 
         //dummycategories
-        categories = new ArrayList<Category>();
         categories.add(new Category(0, "Maths", "formular", Color.BLUE));
         categories.add(new Category("English", "vocabulary", Color.YELLOW));
         categories.add(new Category("English: Business", "vocabulary", Color.YELLOW));
