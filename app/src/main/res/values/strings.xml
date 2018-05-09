@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">MemoQ</string>
-    <string name="categorydescr">categoryDescr</string>
-    <string name="categoryname">categoryName</string>
+    <string name="categorydescr">Categorydescription</string>
+    <string name="categoryname">Categoryname</string>
     <string name="StartMemoQ">Start MemoQ</string>
-    <string name="cardname">cardName</string>
-    <string name="nextButton">Next</string>
+    <string name="cardname">Cardname</string>
     <string name="qaText">QA-Text</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_dialog_titel">New Category</string>
+    <string name="create">Create</string>
 </resources>

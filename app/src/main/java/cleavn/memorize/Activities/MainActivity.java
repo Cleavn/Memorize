@@ -1,8 +1,11 @@
 package cleavn.memorize.Activities;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,16 +20,20 @@ import cleavn.memorize.R;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Category> categories;
+    private Dialog addDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        categories = new ArrayList<Category>();
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
+        ListView listView = (ListView) findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
 
-        //TODO: FloatingActionButton/Toolbarbutton - to create Categories
-        //TODO: FloatingActionButton/Toolbarbutton - to start Learningsession
+        categories = new ArrayList<Category>();
+        addDialog = new Dialog(this);
 
         //dummycategories
         categories.add(new Category(0, "Maths", "formular", Color.BLUE));
@@ -45,12 +52,25 @@ public class MainActivity extends AppCompatActivity {
         categories.add(new Category("Cat8", "description"));
         categories.add(new Category("Cat9", "description"));
 
+        // FloatingActionButton for adding new category
+        fabAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showAddDialog();
+            }
+        });
+
+        // FloatingActionButton to start Learningsession
+        fabPlay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //TODO: start Learningsession
+            }
+        });
+
         //TODO: DB-Logic
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
-        ListView listView = (ListView) findViewById(R.id.itemListView);
         listView.setAdapter(categoryAdapter);
-
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
@@ -64,5 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
         //TODO: listView.setOnFlingListener - fling to show two buttons "edit" and "delete"
         //TODO: Deletebutton - pops dialog for confirmation
+    }
+
+    public void showAddDialog(){
+        addDialog.setContentView(R.layout.dialog_category);
+        //TODO: finish addDialog
     }
 }
