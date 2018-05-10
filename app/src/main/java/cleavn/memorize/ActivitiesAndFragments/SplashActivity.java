@@ -1,4 +1,4 @@
-package cleavn.memorize.Activities;
+package cleavn.memorize.ActivitiesAndFragments;
 
 import android.content.Intent;
 import android.os.Handler;

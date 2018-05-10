@@ -11,6 +11,13 @@ public class Card {
         this.categoryId = categoryId;
     }
 
+    public Card(int _id, String question, String answer, int categoryId){
+        this._id = _id;
+        this.question = question;
+        this.answer = answer;
+        this.categoryId = categoryId;
+    }
+
     public String getQuestion() {
         return question;
     }

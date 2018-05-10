@@ -1,32 +1,30 @@
-package cleavn.memorize.Activities;
+package cleavn.memorize.ActivitiesAndFragments;
 
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import cleavn.memorize.Adapter.CardAdapter;
-import cleavn.memorize.CardFragment;
-import cleavn.memorize.MyGestureListener;
+import cleavn.memorize.AdapterAndListener.CardAdapter;
+import cleavn.memorize.AdapterAndListener.MyDbAdapter;
+import cleavn.memorize.AdapterAndListener.MyGestureListener;
 import cleavn.memorize.Objects.Card;
 import cleavn.memorize.R;
 
 public class ToonActivity extends AppCompatActivity implements CardFragment.OnFragmentInteractionListener {
 
     private ArrayList<Card> cards;
-    private ArrayList<Card> categoryCards;
     public GestureDetector gestureDetector;
     private Card card;
+    private CardAdapter cardAdapter;
 
     private boolean mShowingBack;
 
@@ -35,25 +33,24 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cards = new ArrayList<Card>();
-
         this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
-
-        // myDialog = new Dialog(this);
-
-        int categoryId = getIntent().getExtras().getInt("CategoryID");
 
         //TODO: FloatingActionButton/Toolbarbutton - to create Categories
         //TODO: FloatingActionButton/Toolbarbutton - to start Learningsession
 
+        /*
         //dummycards
         cards.add(new Card("P-Q-Formel","dummyformel", 0));
         cards.add(new Card("Test2","Testantwort", 0));
+        */
 
-        //TODO: DB-Logic
+        int categoryId = getIntent().getExtras().getInt("CategoryID");
+        MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
+        dbAdapter.open();
+        cards = dbAdapter.getAllCardsFromCategory(categoryId);
+        dbAdapter.close();
 
-        categoryCards = getCategoryCards(categoryId);
-        CardAdapter cardAdapter = new CardAdapter(this, categoryCards);
+        cardAdapter = new CardAdapter(this, cards);
         ListView listView = (ListView) findViewById(R.id.itemListView);
         listView.setAdapter(cardAdapter);
 
@@ -69,17 +66,6 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
 
                     }
                 });
-    }
-
-    private ArrayList<Card> getCategoryCards(int categoryId) {
-        categoryCards = new ArrayList<Card>();
-
-        for (int i = 0; i < cards.size(); i++){
-            if (cards.get(i).getCategoryId() == categoryId){
-                categoryCards.add(cards.get(i));
-            }
-        }
-        return categoryCards;
     }
 
     public void openFrontCardFragment(Card card) {

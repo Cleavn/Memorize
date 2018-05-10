@@ -1,9 +1,9 @@
-package cleavn.memorize;
+package cleavn.memorize.AdapterAndListener;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import cleavn.memorize.Activities.ToonActivity;
+import cleavn.memorize.ActivitiesAndFragments.ToonActivity;
 
 public class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 

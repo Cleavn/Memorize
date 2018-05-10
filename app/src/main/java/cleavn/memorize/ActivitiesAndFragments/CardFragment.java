@@ -1,4 +1,4 @@
-package cleavn.memorize;
+package cleavn.memorize.ActivitiesAndFragments;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,8 +13,8 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cleavn.memorize.Activities.ToonActivity;
 import cleavn.memorize.Objects.Card;
+import cleavn.memorize.R;
 
 public class CardFragment extends Fragment {
     // the fragment initialization parameters
