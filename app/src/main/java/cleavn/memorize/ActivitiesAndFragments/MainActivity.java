@@ -50,9 +50,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (SwipeMenuListView) findViewById(R.id.itemListView);
-        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
-        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
+        listView = findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
 
         categories = new ArrayList<Category>();
 
@@ -128,11 +128,11 @@ public class MainActivity extends AppCompatActivity {
     public void showAddDialog(){
         addDialog = new Dialog(this);
         addDialog.setContentView(R.layout.dialog_category);
-        categoryDialogCloseBtn = (ImageButton) addDialog.findViewById(R.id.categoryDialogCloseCardButton);
-        categoryColorView = (View) addDialog.findViewById(R.id.categoryColorView);
-        categoryDialogName = (EditText) addDialog.findViewById(R.id.categoryDialogName);
-        categoryDialogDescr = (EditText) addDialog.findViewById(R.id.categoryDialogDescr);
-        categoryDialogBtn = (Button) addDialog.findViewById(R.id.categoryDialogBtn);
+        categoryDialogCloseBtn = addDialog.findViewById(R.id.categoryDialogCloseCardButton);
+        categoryColorView = addDialog.findViewById(R.id.categoryColorView);
+        categoryDialogName = addDialog.findViewById(R.id.categoryDialogName);
+        categoryDialogDescr = addDialog.findViewById(R.id.categoryDialogDescr);
+        categoryDialogBtn = addDialog.findViewById(R.id.categoryDialogBtn);
 
         categoryDialogCloseBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -164,12 +164,12 @@ public class MainActivity extends AppCompatActivity {
     public void showEditDialog(final int position){
         editDialog = new Dialog(this);
         editDialog.setContentView(R.layout.dialog_category);
-        categoryDialogCloseBtn = (ImageButton) editDialog.findViewById(R.id.categoryDialogCloseCardButton);
-        categoryColorView = (View) editDialog.findViewById(R.id.categoryColorView);
-        categoryDialogName = (EditText) editDialog.findViewById(R.id.categoryDialogName);
-        categoryDialogDescr = (EditText) editDialog.findViewById(R.id.categoryDialogDescr);
-        categoryDialogBtn = (Button) editDialog.findViewById(R.id.categoryDialogBtn);
-        categoryDialogTitle = (TextView) editDialog.findViewById(R.id.categoryDialogTitle);
+        categoryDialogCloseBtn = editDialog.findViewById(R.id.categoryDialogCloseCardButton);
+        categoryColorView = editDialog.findViewById(R.id.categoryColorView);
+        categoryDialogName = editDialog.findViewById(R.id.categoryDialogName);
+        categoryDialogDescr = editDialog.findViewById(R.id.categoryDialogDescr);
+        categoryDialogBtn = editDialog.findViewById(R.id.categoryDialogBtn);
+        categoryDialogTitle = editDialog.findViewById(R.id.categoryDialogTitle);
 
         categoryColorView.setBackgroundColor(categories.get(position).getColor());
         categoryDialogName.setText(categories.get(position).getCategoryName());
@@ -207,19 +207,22 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.delete_category_title);
         builder.setMessage("Do you really want to delete this Category: " + categoryName);
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MyDbAdapter dbAdapter = new MyDbAdapter(MainActivity.this);
                 dbAdapter.open();
                 dbAdapter.deleteCategory(categoryId);
                 dbAdapter.close();
+
+                getCategoryEntries();
+                dialog.dismiss();
             }
         });
         AlertDialog deleteDialog = builder.create();
