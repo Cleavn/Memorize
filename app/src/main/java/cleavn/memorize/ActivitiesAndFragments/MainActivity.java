@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
         FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
 
+        //TODO: Change Toolbartitle according to where you are
+
         categories = new ArrayList<Category>();
 
         // FloatingActionButton for adding new category
