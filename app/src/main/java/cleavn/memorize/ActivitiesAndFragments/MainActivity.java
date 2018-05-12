@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     View categoryColorView;
     EditText categoryDialogName, categoryDialogDescr;
     Button categoryDialogBtn;
+    TextView categoryDialogTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
