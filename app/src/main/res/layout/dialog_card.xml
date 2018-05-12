@@ -5,7 +5,7 @@
     android:layout_height="wrap_content" >
 
     <android.support.v7.widget.CardView
-        android:id="@+id/categoryDialogCardView"
+        android:id="@+id/cardDialogCardView"
         android:layout_width="300dp"
         android:layout_height="350dp"
         android:layout_centerHorizontal="true"
@@ -20,7 +20,7 @@
             android:padding="10dp">
 
             <ImageButton
-                android:id="@+id/categoryDialogCloseCardButton"
+                android:id="@+id/cardDialogCloseCardButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -30,54 +30,37 @@
                 card_view:srcCompat="@drawable/ic_cancel_red" />
 
             <TextView
-                android:id="@+id/categoryDialogTitle"
+                android:id="@+id/cardDialogTitel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/category_dialog_title_new"
+                android:text="@string/card_dialog_titel_new"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <RelativeLayout
-                android:id="@+id/categoryDialogColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/categoryDialogTitle"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/my_border">
-
-                <View
-                    android:id="@+id/categoryColorView"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="1dp"
-                    android:background="#B2B2B2"
-                    android:clickable="true" />
-            </RelativeLayout>
-
             <EditText
-                android:id="@+id/categoryDialogName"
+                android:id="@+id/cardQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/categoryDialogColor"
-                android:layout_toEndOf="@+id/categoryDialogColor"
-                android:layout_marginStart="5dp"
-                android:hint="@string/categoryname" />
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/cardDialogTitel"
+                android:layout_marginTop="10dp"
+                android:inputType="textMultiLine"
+                android:lines="2"
+                android:hint="@string/cardquestion" />
 
             <EditText
-                android:id="@+id/categoryDialogDescr"
+                android:id="@+id/cardAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/categoryDialogColor"
-                android:layout_above="@+id/categoryDialogBtn"
+                android:layout_below="@+id/cardQuestion"
+                android:layout_above="@+id/cardDialogBtn"
                 android:layout_marginTop="5dp"
-                android:hint="@string/categorydescr"/>
+                android:hint="@string/cardanswer"/>
 
             <Button
-                android:id="@+id/categoryDialogBtn"
+                android:id="@+id/cardDialogBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

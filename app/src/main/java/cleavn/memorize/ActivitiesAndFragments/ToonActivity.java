@@ -1,6 +1,8 @@
 package cleavn.memorize.ActivitiesAndFragments;
 
+import android.app.Dialog;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +11,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
@@ -26,17 +34,45 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
     private Card card;
     private CardAdapter cardAdapter;
 
+    SwipeMenuListView listView;
+
+    Dialog addDialog;
+    ImageButton cardDialogCloseBtn;
+    EditText cardQuestion, cardAnswer;
+    Button cardDialogBtn;
+
     private boolean mShowingBack;
+    int categoryId;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        listView = (SwipeMenuListView) findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
         this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
 
-        //TODO: FloatingActionButton/Toolbarbutton - to create Categories
-        //TODO: FloatingActionButton/Toolbarbutton - to start Learningsession
+        cards = new ArrayList<Card>();
+
+        categoryId = getIntent().getExtras().getInt("CategoryID");
+
+        // FloatingActionButton for adding new category
+        fabAdd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showAddDialog();
+            }
+        });
+
+        // FloatingActionButton to start Learningsession
+        fabPlay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                //TODO: start Learningsession
+            }
+        });
 
         /*
         //dummycards
@@ -44,26 +80,23 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         cards.add(new Card("Test2","Testantwort", 0));
         */
 
-        int categoryId = getIntent().getExtras().getInt("CategoryID");
+        getCardEntriesFromCategory(categoryId);
+    }
+
+    public void getCardEntriesFromCategory(int categoryId){
         MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
         dbAdapter.open();
         cards = dbAdapter.getAllCardsFromCategory(categoryId);
         dbAdapter.close();
 
         cardAdapter = new CardAdapter(this, cards);
-        ListView listView = (ListView) findViewById(R.id.itemListView);
         listView.setAdapter(cardAdapter);
-
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        //TODO: Swipe-Flip animation for card/fragment
-                        //TODO: Replace Dialog with two Fragments?
-
                         card = cards.get(position);
                         openFrontCardFragment(card);
-
                     }
                 });
     }
@@ -74,6 +107,38 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack("FRONTCARD_FRAGMENT");
         transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
+    }
+
+    public void showAddDialog(){
+        addDialog = new Dialog(this);
+        addDialog.setContentView(R.layout.dialog_card);
+        cardDialogCloseBtn = (ImageButton) addDialog.findViewById(R.id.cardDialogCloseCardButton);
+        cardQuestion = (EditText) addDialog.findViewById(R.id.cardQuestion);
+        cardAnswer = (EditText) addDialog.findViewById(R.id.cardAnswer);
+        cardDialogBtn = (Button) addDialog.findViewById(R.id.cardDialogBtn);
+
+        cardDialogCloseBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                addDialog.dismiss();
+            }
+        });
+
+        cardDialogBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Card newCard = new Card(cardQuestion.getText().toString(), cardAnswer.getText().toString(), categoryId);
+                MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
+                dbAdapter.open();
+                dbAdapter.createCard(newCard);
+                dbAdapter.close();
+
+                Toast.makeText(getApplicationContext(), "Card " + cardQuestion.getText().toString() + " created", Toast.LENGTH_SHORT).show();
+                getCardEntriesFromCategory(categoryId);
+                addDialog.dismiss();
+            }
+        });
+        addDialog.show();
     }
 
     //TODO: flip anpassen je nach richtung - links/rechts

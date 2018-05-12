@@ -62,19 +62,13 @@ public class MyDbAdapter {
         dbHelper.close();
     }
 
-    public Category createCategory(Category category) {
+    public void createCategory(Category category) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_CATEGORYNAME, category.getCategoryName());
         values.put(COLUMN_CATEGORYDESCR, category.getCategoryDescr());
         values.put(COLUMN_CATEGORYCOLOR, category.getColor());
 
-        long insertId = sqlDB.insert(TABLE_CATEGORIES, null, values);
-        Cursor cursor = sqlDB.query(TABLE_CATEGORIES, allCategoryColumns, COLUMN_CATEGORYID + " = " + insertId, null, null, null, null);
-
-        cursor.moveToFirst();
-        Category newCategory = cursorToCategory(cursor);
-        cursor.close();
-        return newCategory;
+        sqlDB.insert(TABLE_CATEGORIES, null, values);
     }
 
     public int deleteCategory(int idToDelete) {
@@ -105,7 +99,7 @@ public class MyDbAdapter {
     }
 
     private Category cursorToCategory(Cursor cursor) {
-        return new Category(cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+        return new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
     }
 
     //TODO addcard, deletecard
@@ -152,7 +146,7 @@ public class MyDbAdapter {
     }
 
     private Card cursorToCard(Cursor cursor) {
-        return new Card(cursor.getInt(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+        return new Card(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
     }
 
     private static class MyDbHelper extends SQLiteOpenHelper{

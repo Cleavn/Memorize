@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ActivitiesAndFragments.MainActivity">
 
-    <ListView
+    <com.baoyz.swipemenulistview.SwipeMenuListView
         android:id="@+id/itemListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -36,7 +36,7 @@
         android:layout_above="@+id/fabPlay"
         android:layout_alignStart="@+id/fabPlay"
         android:layout_marginBottom="5dp"
-        android:src="@drawable/ic_add_white"
+        android:src="@drawable/ic_add"
         android:clickable="true" />
 
 </android.widget.RelativeLayout>
