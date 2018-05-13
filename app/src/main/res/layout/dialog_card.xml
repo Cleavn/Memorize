@@ -31,7 +31,7 @@
                 card_view:srcCompat="@drawable/ic_cancel_red" />
 
             <TextView
-                android:id="@+id/cardDialogTitel"
+                android:id="@+id/cardDialogTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -44,9 +44,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/cardDialogTitel"
+                android:layout_below="@+id/cardDialogTitle"
                 android:layout_marginTop="10dp"
-                android:hint="@string/cardquestion"
+                android:hint="@string/cardquestion_placeholder"
                 android:inputType="textMultiLine"
                 android:lines="2" />
 
@@ -58,7 +58,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/cardQuestion"
                 android:layout_marginTop="5dp"
-                android:hint="@string/cardanswer" />
+                android:hint="@string/cardanswer_placeholder" />
 
             <Button
                 android:id="@+id/cardDialogBtn"

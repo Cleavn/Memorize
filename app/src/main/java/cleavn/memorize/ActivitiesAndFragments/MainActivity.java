@@ -9,7 +9,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -50,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = findViewById(R.id.itemListView);
-        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
-        FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
+        listView = (SwipeMenuListView) findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
 
         //TODO: Change Toolbartitle according to where you are
 
@@ -90,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-                Log.d("POSITION", "onMenuItemClick: " + position);
                 switch (index){
                     case 0:
                         showEditDialog(position);
@@ -130,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void showAddDialog(){
         addDialog = new Dialog(this);
         addDialog.setContentView(R.layout.dialog_category);
+
         categoryDialogCloseBtn = addDialog.findViewById(R.id.categoryDialogCloseCardButton);
         categoryColorView = addDialog.findViewById(R.id.categoryColorView);
         categoryDialogName = addDialog.findViewById(R.id.categoryDialogName);
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: custom spinner for categorycolor
+        //TODO: custom colorpicker for categorycolor
 
         // Adds newly created category in db and refreshes the listview by calling getCategoryEntries()
         categoryDialogBtn.setOnClickListener(new View.OnClickListener(){
@@ -166,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void showEditDialog(final int position){
         editDialog = new Dialog(this);
         editDialog.setContentView(R.layout.dialog_category);
+
         categoryDialogCloseBtn = editDialog.findViewById(R.id.categoryDialogCloseCardButton);
         categoryColorView = editDialog.findViewById(R.id.categoryColorView);
         categoryDialogName = editDialog.findViewById(R.id.categoryDialogName);
@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 MyDbAdapter dbAdapter = new MyDbAdapter(MainActivity.this);
                 dbAdapter.open();
-                dbAdapter.updateCategory(categories.get(position).getId(), categoryDialogName.getText().toString(), categoryDialogDescr.getText().toString(), categoryColorView.getDrawingCacheBackgroundColor());
+                dbAdapter.updateCategory(categories.get(position).getId(), categoryDialogName.getText().toString(), categoryDialogDescr.getText().toString(), ((ColorDrawable) categoryColorView.getBackground()).getColor());
                 dbAdapter.close();
 
                 Toast.makeText(getApplicationContext(), "Category " + categoryDialogName.getText().toString() + " updated", Toast.LENGTH_SHORT).show();
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         editDialog.show();
     }
 
-    public void showDeleteDialog(final int categoryId, String categoryName){
+    public void showDeleteDialog(final int categoryId, final String categoryName){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         builder.setTitle(R.string.delete_category_title);
         builder.setMessage("Do you really want to delete this Category: " + categoryName);
@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                 dbAdapter.deleteCategory(categoryId);
                 dbAdapter.close();
 
+                Toast.makeText(getApplicationContext(), "Category " + categoryName + " deleted", Toast.LENGTH_SHORT).show();
                 getCategoryEntries();
                 dialog.dismiss();
             }
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
                         getApplicationContext());
                 editItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
                         0xCE)));
-                editItem.setWidth(170);
+                editItem.setWidth(200);
                 editItem.setTitle("Edit");
                 editItem.setTitleSize(18);
                 editItem.setTitleColor(Color.WHITE);
@@ -252,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
                         getApplicationContext());
                 deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
                         0x3F, 0x25)));
-                deleteItem.setWidth(170);
+                deleteItem.setWidth(200);
                 deleteItem.setIcon(R.drawable.ic_delete);
                 menu.addMenuItem(deleteItem);
             }

@@ -102,7 +102,6 @@ public class MyDbAdapter {
         return new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
     }
 
-    //TODO addcard, deletecard
     public Card createCard(Card card) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_CARDQUESTION, card.getQuestion());

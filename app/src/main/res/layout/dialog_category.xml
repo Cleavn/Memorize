@@ -46,7 +46,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/categoryDialogTitle"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/my_border">
+                android:background="@drawable/my_border" >
 
                 <View
                     android:id="@+id/categoryColorView"
@@ -65,7 +65,7 @@
                 android:layout_alignTop="@+id/categoryDialogColor"
                 android:layout_toEndOf="@+id/categoryDialogColor"
                 android:layout_marginStart="5dp"
-                android:hint="@string/categoryname" />
+                android:hint="@string/categoryname_placeholder" />
 
             <EditText
                 android:id="@+id/categoryDialogDescr"
@@ -75,7 +75,7 @@
                 android:layout_below="@+id/categoryDialogColor"
                 android:layout_above="@+id/categoryDialogBtn"
                 android:layout_marginTop="5dp"
-                android:hint="@string/categorydescr"/>
+                android:hint="@string/categorydescr_placegolder"/>
 
             <Button
                 android:id="@+id/categoryDialogBtn"
