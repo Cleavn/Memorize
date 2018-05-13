@@ -71,17 +71,17 @@ public class MyDbAdapter {
         sqlDB.insert(TABLE_CATEGORIES, null, values);
     }
 
-    public int deleteCategory(int idToDelete) {
-        return sqlDB.delete(TABLE_CATEGORIES, COLUMN_CATEGORYID + " = " + idToDelete, null);
+    public void deleteCategory(int idToDelete) {
+        sqlDB.delete(TABLE_CATEGORIES, COLUMN_CATEGORYID + " = " + idToDelete, null);
     }
 
-    public int updateCategory(int idToUpdate, String newName, String newDescr, int newColor){
+    public void updateCategory(int idToUpdate, String newName, String newDescr, int newColor){
         ContentValues values = new ContentValues();
         values.put(COLUMN_CATEGORYNAME, newName);
         values.put(COLUMN_CATEGORYDESCR, newDescr);
         values.put(COLUMN_CATEGORYCOLOR, newColor);
 
-        return sqlDB.update(TABLE_CATEGORIES, values, COLUMN_CATEGORYID + " = " + idToUpdate, null);
+        sqlDB.update(TABLE_CATEGORIES, values, COLUMN_CATEGORYID + " = " + idToUpdate, null);
     }
 
     public ArrayList<Category> getAllCategories() {
@@ -102,32 +102,26 @@ public class MyDbAdapter {
         return new Category(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3));
     }
 
-    public Card createCard(Card card) {
+    public void createCard(Card card) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_CARDQUESTION, card.getQuestion());
         values.put(COLUMN_CARDANSWER, card.getAnswer());
         values.put(COLUMN_CARDCATEGORYID, card.getCategoryId());
 
-        long insertId = sqlDB.insert(TABLE_CARDS, null, values);
-        Cursor cursor = sqlDB.query(TABLE_CARDS, allCardColumns, COLUMN_CARDID + " = " + insertId, null, null, null, null);
-
-        cursor.moveToFirst();
-        Card newCard = cursorToCard(cursor);
-        cursor.close();
-        return newCard;
+        sqlDB.insert(TABLE_CARDS, null, values);
     }
 
-    public int deleteCard(int idToDelete) {
-        return sqlDB.delete(TABLE_CARDS, COLUMN_CARDID + " = " + idToDelete, null);
+    public void deleteCard(int idToDelete) {
+        sqlDB.delete(TABLE_CARDS, COLUMN_CARDID + " = " + idToDelete, null);
     }
 
-    public int updateCard(int idToUpdate, String newQuestion, String newAnswer, int categoryId){
+    public void updateCard(int idToUpdate, String newQuestion, String newAnswer, int categoryId){
         ContentValues values = new ContentValues();
         values.put(COLUMN_CARDQUESTION, newQuestion);
         values.put(COLUMN_CARDANSWER, newAnswer);
         values.put(COLUMN_CARDCATEGORYID, categoryId);
 
-        return sqlDB.update(TABLE_CARDS, values, COLUMN_CARDID + " = " + idToUpdate, null);
+        sqlDB.update(TABLE_CARDS, values, COLUMN_CARDID + " = " + idToUpdate, null);
     }
 
     public ArrayList<Card> getAllCardsFromCategory(int categoryId) {

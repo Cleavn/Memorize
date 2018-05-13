@@ -142,7 +142,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: custom colorpicker for categorycolor
+        // Calls colorpicker and set backgroundcolor of view
+        categoryColorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         // Adds newly created category in db and refreshes the listview by calling getCategoryEntries()
         categoryDialogBtn.setOnClickListener(new View.OnClickListener(){
@@ -186,7 +192,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //TODO: custom spinner for categorycolor
+        // Calls colorpicker and set backgroundcolor of view
+        categoryColorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         // Takes values of edittext and updates entry with it
         categoryDialogBtn.setOnClickListener(new View.OnClickListener(){

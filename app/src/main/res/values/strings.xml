@@ -20,4 +20,6 @@
     <string name="card_dialog_titel_new">New Card</string>
     <string name="card_dialog_title_edit">Edit Card</string>
     <string name="delete_card_title">Delete Card</string>
+    <string name="picker_dialog_titel">Select Color</string>
+    <string name="select">Select</string>
 </resources>

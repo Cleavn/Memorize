@@ -140,6 +140,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
     public void showAddDialog(){
         addDialog = new Dialog(this);
         addDialog.setContentView(R.layout.dialog_card);
+
         cardDialogCloseBtn = (ImageButton) addDialog.findViewById(R.id.cardDialogCloseCardButton);
         cardQuestion = (EditText) addDialog.findViewById(R.id.cardQuestion);
         cardAnswer = (EditText) addDialog.findViewById(R.id.cardAnswer);
