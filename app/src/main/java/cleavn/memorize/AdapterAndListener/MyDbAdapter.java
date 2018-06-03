@@ -16,7 +16,7 @@ public class MyDbAdapter {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "memorize.db";
 
-    private static final String TABLE_CATEGORIES = "products";
+    private static final String TABLE_CATEGORIES = "categories";
     private static final String COLUMN_CATEGORYID = "_id";
     private static final String COLUMN_CATEGORYNAME = "categoryname";
     private static final String COLUMN_CATEGORYDESCR = "categorydescr";

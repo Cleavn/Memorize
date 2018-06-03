@@ -22,4 +22,5 @@
     <string name="delete_card_title">Delete Card</string>
     <string name="picker_dialog_titel">Select Color</string>
     <string name="select">Select</string>
+    <string name="splashtext">MemoQ</string>
 </resources>
