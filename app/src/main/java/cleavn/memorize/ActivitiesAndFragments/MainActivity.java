@@ -25,6 +25,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import java.util.ArrayList;
 
 import cleavn.memorize.AdapterAndListener.CategoryAdapter;
+import cleavn.memorize.Objects.ColorPicker;
 import cleavn.memorize.AdapterAndListener.MyDbAdapter;
 import cleavn.memorize.Objects.Category;
 import cleavn.memorize.R;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     SwipeMenuCreator creator;
 
     Dialog addDialog, editDialog;
+    ColorPicker colorDialog;
     ImageButton categoryDialogCloseBtn;
     View categoryColorView;
     EditText categoryDialogName, categoryDialogDescr;
@@ -146,7 +148,11 @@ public class MainActivity extends AppCompatActivity {
         categoryColorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //TODO: colorpicker
+                colorDialog = new ColorPicker(getBaseContext());
+                colorDialog.show();
+                int color = colorDialog.getColor();
+                categoryColorView.setBackgroundColor(color);
             }
         });
 

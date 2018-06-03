@@ -84,7 +84,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_margin="1dp"
-                                android:background="#0099FF"
+                                android:background="#C41F3B"
                                 android:clickable="true" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -105,7 +105,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_margin="1dp"
-                                android:background="#FFFFFF"
+                                android:background="#A330C9"
                                 android:clickable="true" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -126,7 +126,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_margin="1dp"
-                                android:background="#FFFFFF"
+                                android:background="#9482C9"
                                 android:clickable="true" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -147,7 +147,7 @@
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:layout_margin="1dp"
-                                android:background="#FFFFFF"
+                                android:background="#F58CBA"
                                 android:clickable="true" />
                         </RelativeLayout>
                     </RelativeLayout>
@@ -157,65 +157,105 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color6"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#ABD473"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color7"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#00FF96"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color8"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#69CCF0"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color9"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#0070DE"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color10"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#FF7D0A"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </TableRow>
                 <TableRow>
@@ -223,65 +263,105 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color11"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#C79C6E"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color12"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#BDC3C7"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color13"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#00897B"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color14"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#BBDEFB"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color15"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#FFF569"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </TableRow>
                 <TableRow>
@@ -289,65 +369,105 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color16"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#673AB7"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color17"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#F4511E"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color18"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#00BCD4"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color19"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#CDDC39"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color20"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#839192"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </TableRow>
                 <TableRow>
@@ -355,65 +475,105 @@
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color21"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#F9E79F"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color22"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#B7950B"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color23"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#641E16"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color24"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#D4EFDF"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_weight="1" >
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_margin="1dp"
-                            android:background="#B2B2B2"
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:clickable="true"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/my_border" >
+
+                            <View
+                                android:id="@+id/color25"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_margin="1dp"
+                                android:background="#000000"
+                                android:clickable="true" />
+                        </RelativeLayout>
                     </RelativeLayout>
                 </TableRow>
             </TableLayout>
