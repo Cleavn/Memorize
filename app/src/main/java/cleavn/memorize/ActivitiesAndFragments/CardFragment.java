@@ -31,7 +31,6 @@ public class CardFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static CardFragment newInstance(Card card, String cardsite) {
         CardFragment fragment = new CardFragment();
         Bundle args = new Bundle();

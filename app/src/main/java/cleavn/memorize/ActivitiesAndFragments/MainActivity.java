@@ -150,9 +150,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //TODO: colorpicker
                 colorDialog = new ColorPicker(getBaseContext());
-                colorDialog.show();
                 int color = colorDialog.getColor();
                 categoryColorView.setBackgroundColor(color);
+                colorDialog.show();
             }
         });
 
@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         categoryColorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //TODO: colorpicker
             }
         });
 
