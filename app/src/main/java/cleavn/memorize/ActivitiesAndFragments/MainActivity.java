@@ -26,15 +26,16 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
-import cleavn.memorize.AdapterAndListener.CategoryAdapter;
+import cleavn.memorize.Utils.CategoryAdapter;
 import cleavn.memorize.Utils.ColorPicker;
-import cleavn.memorize.AdapterAndListener.MyDbAdapter;
+import cleavn.memorize.Utils.MyDbAdapter;
 import cleavn.memorize.Objects.Category;
 import cleavn.memorize.R;
 
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Category> categories;
+    ArrayList<String> categorynames;
     private CategoryAdapter categoryAdapter;
 
     SwipeMenuListView listView;
@@ -44,23 +45,25 @@ public class MainActivity extends AppCompatActivity {
     ColorPicker colorDialog;
     ImageButton categoryDialogCloseBtn,lsCloseCardButton, lsAddCategory;
     View categoryColorView;
-    EditText categoryDialogName, categoryDialogDescr, lsSetTime;
+    EditText categoryDialogName, categoryDialogDescr;
     Button categoryDialogBtn, lsStartBtn;
     TextView categoryDialogTitle;
-    Spinner spinner;
+    Spinner spinner, hourSpinner, minuteSpinner;
+
+    int starttime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (SwipeMenuListView) findViewById(R.id.itemListView);
-        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
-        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
+        listView = findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
 
         //TODO: Change Toolbartitle according to where you are
 
-        categories = new ArrayList<Category>();
+        categories = new ArrayList<>();
 
         // FloatingActionButton for adding new category
         fabAdd.setOnClickListener(new View.OnClickListener(){
@@ -261,13 +264,18 @@ public class MainActivity extends AppCompatActivity {
         spinner = lsDialog.findViewById(R.id.lsDialog_setCategorySpinner);
         lsCloseCardButton = lsDialog.findViewById(R.id.lsDialog_CloseCardButton);
         lsAddCategory = lsDialog.findViewById(R.id.lsDialog_addCategory);
-        lsSetTime = lsDialog.findViewById(R.id.lsDialog_setTimeEditText);
+        hourSpinner = lsDialog.findViewById(R.id.lsDialog_setTimeHour);
+        minuteSpinner = lsDialog.findViewById(R.id.lsDialog_setTimeMinute);
         lsStartBtn = lsDialog.findViewById(R.id.lsDialog_Btn);
 
         // fill spinner with data
-        ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+        categorynames = new ArrayList<>();
+        //TODO schleife für categorienamen
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorynames);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+
+        //TODO fill time spinner
 
         lsCloseCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -291,12 +299,17 @@ public class MainActivity extends AppCompatActivity {
                 if(!spinner.isSelected()){
                     //TODO ERROR
                 }else{
+                    if(!hourSpinner.isSelected() && !minuteSpinner.isSelected()){
+                        starttime = 0;
+                    }
+
                     myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
-                    myIntent.putExtra("Time", lsSetTime.getDrawingTime());
+                    myIntent.putExtra("Time", starttime);
                     startActivity(myIntent);
                 }
             }
         });
+        lsDialog.show();
     }
 
     // Creates the buttons for the swipemenu

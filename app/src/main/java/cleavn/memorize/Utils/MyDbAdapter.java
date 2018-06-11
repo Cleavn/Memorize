@@ -1,4 +1,4 @@
-package cleavn.memorize.AdapterAndListener;
+package cleavn.memorize.Utils;
 
 import android.content.ContentValues;
 import android.content.Context;

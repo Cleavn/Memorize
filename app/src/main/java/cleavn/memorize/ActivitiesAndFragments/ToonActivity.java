@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +28,9 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
-import cleavn.memorize.AdapterAndListener.CardAdapter;
-import cleavn.memorize.AdapterAndListener.MyDbAdapter;
-import cleavn.memorize.AdapterAndListener.MyGestureListener;
+import cleavn.memorize.Utils.CardAdapter;
+import cleavn.memorize.Utils.MyDbAdapter;
+import cleavn.memorize.Utils.MyGestureListener;
 import cleavn.memorize.Objects.Card;
 import cleavn.memorize.R;
 
@@ -59,12 +58,12 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        listView = (SwipeMenuListView) findViewById(R.id.itemListView);
-        FloatingActionButton fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
-        FloatingActionButton fabPlay = (FloatingActionButton) findViewById(R.id.fabPlay);
+        listView = findViewById(R.id.itemListView);
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+        FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
 
         this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<>();
 
         categoryId = getIntent().getExtras().getInt("CategoryID");
 
@@ -141,10 +140,10 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         addDialog = new Dialog(this);
         addDialog.setContentView(R.layout.dialog_card);
 
-        cardDialogCloseBtn = (ImageButton) addDialog.findViewById(R.id.cardDialogCloseCardButton);
-        cardQuestion = (EditText) addDialog.findViewById(R.id.cardQuestion);
-        cardAnswer = (EditText) addDialog.findViewById(R.id.cardAnswer);
-        cardDialogBtn = (Button) addDialog.findViewById(R.id.cardDialogBtn);
+        cardDialogCloseBtn = addDialog.findViewById(R.id.cardDialogCloseCardButton);
+        cardQuestion = addDialog.findViewById(R.id.cardQuestion);
+        cardAnswer = addDialog.findViewById(R.id.cardAnswer);
+        cardDialogBtn = addDialog.findViewById(R.id.cardDialogBtn);
 
         cardDialogCloseBtn.setOnClickListener(new View.OnClickListener(){
             @Override

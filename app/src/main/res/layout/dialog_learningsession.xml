@@ -81,14 +81,38 @@
                 android:textSize="16sp"
                 android:text="Set Time" />
 
-            <EditText
-                android:id="@+id/lsDialog_setTimeEditText"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lsDialog_setTimeHeader"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:inputType="time" />
+                android:layout_below="@+id/lsDialog_setTimeHeader" >
+                <Spinner
+                    android:id="@+id/lsDialog_setTimeHour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/divider"
+                    android:inputType="time" />
+
+                <TextView
+                    android:id="@+id/divider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text=" : "
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/lsDialog_setTimeMinute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_toEndOf="@+id/divider"
+                    android:inputType="time" />
+            </RelativeLayout>
+
+
 
         </RelativeLayout>
 

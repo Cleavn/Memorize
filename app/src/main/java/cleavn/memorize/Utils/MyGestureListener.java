@@ -1,15 +1,25 @@
-package cleavn.memorize.AdapterAndListener;
+package cleavn.memorize.Utils;
 
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
+import cleavn.memorize.ActivitiesAndFragments.LearningsessionActivity;
 import cleavn.memorize.ActivitiesAndFragments.ToonActivity;
 
 public class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
+    int checkActivity;
     private ToonActivity mToonActivity;
+    private LearningsessionActivity mLearningsessionActivity;
+
     public MyGestureListener(ToonActivity activity) {
         mToonActivity = activity;
+        checkActivity = 1;
+    }
+
+    public MyGestureListener(LearningsessionActivity activity) {
+        mLearningsessionActivity = activity;
+        checkActivity = 2;
     }
 
     @Override
@@ -27,7 +37,11 @@ public class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
                 if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffX > 0) {
                         // onSwipeRight
-                        mToonActivity.flipCard();
+                        if(checkActivity == 1){
+                            mToonActivity.flipCard();
+                        }else if(checkActivity == 2){
+                            mLearningsessionActivity.flipCard();
+                        }
                     }
                     result = true;
                 }
