@@ -1,4 +1,4 @@
-package cleavn.memorize.Objects;
+package cleavn.memorize.Utils;
 
 import android.app.Dialog;
 import android.content.Context;

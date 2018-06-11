@@ -25,7 +25,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import java.util.ArrayList;
 
 import cleavn.memorize.AdapterAndListener.CategoryAdapter;
-import cleavn.memorize.Objects.ColorPicker;
+import cleavn.memorize.Utils.ColorPicker;
 import cleavn.memorize.AdapterAndListener.MyDbAdapter;
 import cleavn.memorize.Objects.Category;
 import cleavn.memorize.R;
