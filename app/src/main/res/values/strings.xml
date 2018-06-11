@@ -23,4 +23,6 @@
     <string name="picker_dialog_titel">Select Color</string>
     <string name="select">Select</string>
     <string name="splashtext">MemoQ</string>
+    <string name="start">start</string>
+    <string name="ls_dialog_titel">Start Learningsession</string>
 </resources>

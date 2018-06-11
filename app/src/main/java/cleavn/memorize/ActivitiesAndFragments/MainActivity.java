@@ -11,9 +11,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,13 +40,14 @@ public class MainActivity extends AppCompatActivity {
     SwipeMenuListView listView;
     SwipeMenuCreator creator;
 
-    Dialog addDialog, editDialog;
+    Dialog addDialog, editDialog, lsDialog;
     ColorPicker colorDialog;
-    ImageButton categoryDialogCloseBtn;
+    ImageButton categoryDialogCloseBtn,lsCloseCardButton, lsAddCategory;
     View categoryColorView;
-    EditText categoryDialogName, categoryDialogDescr;
-    Button categoryDialogBtn;
+    EditText categoryDialogName, categoryDialogDescr, lsSetTime;
+    Button categoryDialogBtn, lsStartBtn;
     TextView categoryDialogTitle;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: start Learningsession
+                showStartLearningsessionDialog();
             }
         });
 
@@ -248,6 +252,51 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog deleteDialog = builder.create();
         deleteDialog.show();
+    }
+
+    public void showStartLearningsessionDialog() {
+        lsDialog = new Dialog(this);
+        lsDialog.setContentView(R.layout.dialog_learningsession);
+
+        spinner = lsDialog.findViewById(R.id.lsDialog_setCategorySpinner);
+        lsCloseCardButton = lsDialog.findViewById(R.id.lsDialog_CloseCardButton);
+        lsAddCategory = lsDialog.findViewById(R.id.lsDialog_addCategory);
+        lsSetTime = lsDialog.findViewById(R.id.lsDialog_setTimeEditText);
+        lsStartBtn = lsDialog.findViewById(R.id.lsDialog_Btn);
+
+        // fill spinner with data
+        ArrayAdapter<Category> dataAdapter = new ArrayAdapter<Category>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+        lsCloseCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lsDialog.dismiss();
+            }
+        });
+
+        lsAddCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Add additional Spinner for additional category
+            }
+        });
+
+        lsStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(MainActivity.this, LearningsessionActivity.class);
+
+                if(!spinner.isSelected()){
+                    //TODO ERROR
+                }else{
+                    myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
+                    myIntent.putExtra("Time", lsSetTime.getDrawingTime());
+                    startActivity(myIntent);
+                }
+            }
+        });
     }
 
     // Creates the buttons for the swipemenu
