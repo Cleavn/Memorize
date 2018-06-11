@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".ActivitiesAndFragments.MainActivity" />
         <activity android:name=".ActivitiesAndFragments.ToonActivity"></activity>
+        <activity android:name=".ActivitiesAndFragments.LearningsessionActivity"></activity>
     </application>
 
 </manifest>
