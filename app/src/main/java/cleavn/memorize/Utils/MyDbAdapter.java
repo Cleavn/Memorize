@@ -85,7 +85,7 @@ public class MyDbAdapter {
     }
 
     public ArrayList<Category> getAllCategories() {
-        ArrayList<Category> categories = new ArrayList<Category>();
+        ArrayList<Category> categories = new ArrayList<>();
 
         //grab all categories and their data from the categories table
         Cursor cursor = sqlDB.query(TABLE_CATEGORIES, allCategoryColumns, null, null, null, null, null);
@@ -125,7 +125,7 @@ public class MyDbAdapter {
     }
 
     public ArrayList<Card> getAllCardsFromCategory(int categoryId) {
-        ArrayList<Card> cards = new ArrayList<Card>();
+        ArrayList<Card> cards = new ArrayList<>();
 
         Cursor cursor = sqlDB.query(TABLE_CARDS, allCardColumns, COLUMN_CARDCATEGORYID + " = " + categoryId, null, null, null, null);
         if (cursor != null) {
@@ -150,11 +150,8 @@ public class MyDbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            String query = CREATE_TABLE_CATEGORIES;
-            db.execSQL(query);
-
-            String query2 = CREATE_TABLE_CARDS;
-            db.execSQL(query2);
+            db.execSQL(CREATE_TABLE_CATEGORIES);
+            db.execSQL(CREATE_TABLE_CARDS);
         }
 
         @Override
