@@ -238,6 +238,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
     //TODO: flip anpassen je nach richtung - links/rechts
     public void flipCard() {
         if(mShowingBack) {
+            // pops backstack to last fragment instance
             getSupportFragmentManager().popBackStackImmediate();
             mShowingBack = false;
         } else {

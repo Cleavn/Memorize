@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -68,26 +69,21 @@ public class CardFragment extends Fragment {
 
         questionTextView.setText(mQuestion);
 
-        // Pops whole Fragment backstack
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                //TODO: Bug - when pressed in cardback-mode animation gets called and boolean set wrongly
-                getFragmentManager().popBackStack( getFragmentManager().getBackStackEntryAt(0).getId(), getFragmentManager().POP_BACK_STACK_INCLUSIVE);
-                */
-
-                getFragmentManager().popBackStackImmediate();
+                // pops backstack including last fragment instance
+                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
-        // TODO: Bug - same as closeBtn, should also pop all fragment backstacks
         // Click on background removes fragments
         fragmentBackground.setSoundEffectsEnabled(false);
         fragmentBackground.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                getFragmentManager().popBackStackImmediate();
+                // pops backstack including last fragment instance
+                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
