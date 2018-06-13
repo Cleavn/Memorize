@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     Dialog addDialog, editDialog, lsDialog;
     ColorPicker colorDialog;
-    ImageButton categoryDialogCloseBtn,lsCloseCardButton, lsAddCategory;
+    ImageButton categoryDialogCloseBtn, lsCloseCardButton, lsAddCategory;
     View categoryColorView;
     EditText categoryDialogName, categoryDialogDescr;
     Button categoryDialogBtn, lsStartBtn;

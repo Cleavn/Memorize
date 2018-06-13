@@ -3,6 +3,7 @@ package cleavn.memorize.ActivitiesAndFragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -15,9 +16,11 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,20 +40,22 @@ import cleavn.memorize.R;
 public class ToonActivity extends AppCompatActivity implements CardFragment.OnFragmentInteractionListener {
 
     private ArrayList<Card> cards;
+    ArrayList<String> categorynames;
     public GestureDetector gestureDetector;
     private Card card;
 
     SwipeMenuListView listView;
     SwipeMenuCreator creator;
 
-    Dialog addDialog, editDialog;
-    ImageButton cardDialogCloseBtn;
+    Dialog addDialog, editDialog, lsDialog;
+    ImageButton cardDialogCloseBtn, lsCloseCardButton, lsAddCategory;
     EditText cardQuestion, cardAnswer;
-    Button cardDialogBtn;
+    Button cardDialogBtn, lsStartBtn;
     TextView cardDialogTitle;
+    Spinner spinner, hourSpinner, minuteSpinner;
 
     private boolean mShowingBack;
-    int categoryId;
+    int categoryId, starttime;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,6 +84,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
             @Override
             public void onClick(View v) {
                 //TODO: start Learningsession
+                showStartLearningsessionDialog();
             }
         });
 
@@ -227,34 +233,59 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         deleteDialog.show();
     }
 
-    public void openFrontCardFragment(Card card) {
-        CardFragment frontFragment = CardFragment.newInstance(card, "front");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.addToBackStack("FRONTCARD_FRAGMENT");
-        transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
-    }
+    public void showStartLearningsessionDialog() {
+        lsDialog = new Dialog(this);
+        lsDialog.setContentView(R.layout.dialog_learningsession);
 
-    //TODO: flip anpassen je nach richtung - links/rechts
-    public void flipCard() {
-        if(mShowingBack) {
-            // pops backstack to last fragment instance
-            getSupportFragmentManager().popBackStackImmediate();
-            mShowingBack = false;
-        } else {
-            CardFragment backFragment = CardFragment.newInstance(card, "back");
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
-            transaction.addToBackStack("BACKCARD_FRAGMENT");
-            transaction.replace(R.id.fragmentContainer, backFragment, "BACKCARD_FRAGMENT").commit();
-            mShowingBack = true;
-        }
-        Log.d("FLIP", "flipCard:" + mShowingBack);
-    }
+        spinner = lsDialog.findViewById(R.id.lsDialog_setCategorySpinner);
+        lsCloseCardButton = lsDialog.findViewById(R.id.lsDialog_CloseCardButton);
+        lsAddCategory = lsDialog.findViewById(R.id.lsDialog_addCategory);
+        hourSpinner = lsDialog.findViewById(R.id.lsDialog_setTimeHour);
+        minuteSpinner = lsDialog.findViewById(R.id.lsDialog_setTimeMinute);
+        lsStartBtn = lsDialog.findViewById(R.id.lsDialog_Btn);
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        onBackPressed();
+        // fill spinner with data
+        categorynames = new ArrayList<>();
+        //TODO schleife für categorienamen
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorynames);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(dataAdapter);
+
+        //TODO fill time spinner
+
+        lsCloseCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                lsDialog.dismiss();
+            }
+        });
+
+        lsAddCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: Add additional Spinner for additional category
+            }
+        });
+
+        lsStartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(ToonActivity.this, LearningsessionActivity.class);
+
+                if(!spinner.isSelected()){
+                    //TODO ERROR
+                }else{
+                    if(!hourSpinner.isSelected() && !minuteSpinner.isSelected()){
+                        starttime = 0;
+                    }
+
+                    myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
+                    myIntent.putExtra("Time", starttime);
+                    startActivity(myIntent);
+                }
+            }
+        });
+        lsDialog.show();
     }
 
     // Creates the buttons for the swipemenu
@@ -283,5 +314,39 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                 menu.addMenuItem(deleteItem);
             }
         };
+    }
+
+    /**!
+     * fragmentmethods
+     */
+
+    public void openFrontCardFragment(Card card) {
+        CardFragment frontFragment = CardFragment.newInstance(card, "front");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack("FRONTCARD_FRAGMENT");
+        transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
+    }
+
+    //TODO: flip anpassen je nach richtung - links/rechts
+    public void flipCard() {
+        if(mShowingBack) {
+            // pops backstack to last fragment instance
+            getSupportFragmentManager().popBackStackImmediate();
+            mShowingBack = false;
+        } else {
+            CardFragment backFragment = CardFragment.newInstance(card, "back");
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
+            transaction.addToBackStack("BACKCARD_FRAGMENT");
+            transaction.replace(R.id.fragmentContainer, backFragment, "BACKCARD_FRAGMENT").commit();
+            mShowingBack = true;
+        }
+        Log.d("FLIP", "flipCard:" + mShowingBack);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        onBackPressed();
     }
 }
