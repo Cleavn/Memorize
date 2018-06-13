@@ -39,7 +39,6 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
     private ArrayList<Card> cards;
     public GestureDetector gestureDetector;
     private Card card;
-    private CardAdapter cardAdapter;
 
     SwipeMenuListView listView;
     SwipeMenuCreator creator;
@@ -110,13 +109,14 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         });
     }
 
+    // Get all entries of table cards where categoryId == selected from MainActivity and set it in listview
     public void getCardEntriesFromCategory(int categoryId){
         MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
         dbAdapter.open();
         cards = dbAdapter.getAllCardsFromCategory(categoryId);
         dbAdapter.close();
 
-        cardAdapter = new CardAdapter(this, cards);
+        CardAdapter cardAdapter = new CardAdapter(this, cards);
         listView.setAdapter(cardAdapter);
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -126,14 +126,6 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                         openFrontCardFragment(card);
                     }
                 });
-    }
-
-    public void openFrontCardFragment(Card card) {
-        CardFragment frontFragment = CardFragment.newInstance(card, "front");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.addToBackStack("FRONTCARD_FRAGMENT");
-        transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
     }
 
     public void showAddDialog(){
@@ -233,6 +225,14 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         });
         AlertDialog deleteDialog = builder.create();
         deleteDialog.show();
+    }
+
+    public void openFrontCardFragment(Card card) {
+        CardFragment frontFragment = CardFragment.newInstance(card, "front");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.addToBackStack("FRONTCARD_FRAGMENT");
+        transaction.add(R.id.fragmentContainer, frontFragment, "FRONTCARD_FRAGMENT").commit();
     }
 
     //TODO: flip anpassen je nach richtung - links/rechts

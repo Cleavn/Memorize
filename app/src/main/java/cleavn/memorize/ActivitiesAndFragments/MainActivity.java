@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Category> categories;
     ArrayList<String> categorynames;
-    private CategoryAdapter categoryAdapter;
 
     SwipeMenuListView listView;
     SwipeMenuCreator creator;
@@ -119,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         categories = dbAdapter.getAllCategories();
         dbAdapter.close();
 
-        categoryAdapter = new CategoryAdapter(this, categories);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories);
         listView.setAdapter(categoryAdapter);
         listView.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
@@ -133,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    // Shows dialog and logic for corresponding buttons
     public void showAddDialog(){
         addDialog = new Dialog(this);
         addDialog.setContentView(R.layout.dialog_category);

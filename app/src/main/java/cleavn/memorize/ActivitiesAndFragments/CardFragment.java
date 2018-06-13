@@ -1,5 +1,7 @@
 package cleavn.memorize.ActivitiesAndFragments;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,12 +23,6 @@ public class CardFragment extends Fragment {
     // the fragment initialization parameters
     private static final String TEXT = "text";
     private String mQuestion;
-    private OnFragmentInteractionListener mListener;
-
-    private  RelativeLayout fragmentBackground;
-    private TextView questionTextView;
-    private ImageButton closeBtn;
-    private CardView cardview;
 
     public CardFragment() {
         // Required empty public constructor
@@ -38,7 +34,7 @@ public class CardFragment extends Fragment {
 
         String text;
 
-        if (cardsite == "front"){
+        if (cardsite.equals("front")){
             text = card.getQuestion();
         } else {
             text = card.getAnswer();
@@ -57,15 +53,16 @@ public class CardFragment extends Fragment {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.card_fragment, container, false);
 
-        questionTextView = (TextView) view.findViewById(R.id.qaText);
-        closeBtn = (ImageButton) view.findViewById(R.id.closeCardButton);
-        fragmentBackground = (RelativeLayout) view.findViewById(R.id.fragmentBackground);
-        cardview = (CardView) view.findViewById(R.id.cardView);
+        TextView questionTextView = view.findViewById(R.id.qaText);
+        ImageButton closeBtn = view.findViewById(R.id.closeCardButton);
+        RelativeLayout fragmentBackground = view.findViewById(R.id.fragmentBackground);
+        CardView cardview = view.findViewById(R.id.cardView);
 
         questionTextView.setText(mQuestion);
 
@@ -105,7 +102,7 @@ public class CardFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -115,7 +112,6 @@ public class CardFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
     /**
