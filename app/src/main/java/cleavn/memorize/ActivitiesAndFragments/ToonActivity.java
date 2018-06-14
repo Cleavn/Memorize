@@ -31,6 +31,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
+import cleavn.memorize.Objects.Category;
 import cleavn.memorize.Utils.CardAdapter;
 import cleavn.memorize.Utils.MyDbAdapter;
 import cleavn.memorize.Utils.MyGestureListener;
@@ -39,6 +40,7 @@ import cleavn.memorize.R;
 
 public class ToonActivity extends AppCompatActivity implements CardFragment.OnFragmentInteractionListener {
 
+    private ArrayList<Category> categories;
     private ArrayList<Card> cards;
     ArrayList<String> categorynames;
     public GestureDetector gestureDetector;
@@ -128,6 +130,8 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "cardid: " + cards.get(position).getId(), Toast.LENGTH_LONG);
+                        toast.show();
                         card = cards.get(position);
                         openFrontCardFragment(card);
                     }
@@ -246,8 +250,11 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
 
         // fill spinner with data
         categorynames = new ArrayList<>();
-        //TODO schleife für categorienamen
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorynames);
+        MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
+        dbAdapter.open();
+        categories = dbAdapter.getAllCategories();
+        dbAdapter.close();
+        ArrayAdapter<Category> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
@@ -278,11 +285,12 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                     if(!hourSpinner.isSelected() && !minuteSpinner.isSelected()){
                         starttime = 0;
                     }
-
-                    myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
-                    myIntent.putExtra("Time", starttime);
-                    startActivity(myIntent);
+                    //TODO: set hours and minutes in time
+                    //starttime = ;
                 }
+                myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
+                myIntent.putExtra("Time", starttime);
+                startActivity(myIntent);
             }
         });
         lsDialog.show();

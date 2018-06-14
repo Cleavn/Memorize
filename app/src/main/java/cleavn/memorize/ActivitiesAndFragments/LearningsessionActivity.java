@@ -65,16 +65,15 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         cardsWorkingIteration = cards;
 
         cardid = getRandomCard();
-        cardsWorkingIteration.remove(cardid);
+        //cardsWorkingIteration.remove(cardid);
 
         card = cards.get(cardid);
         openFrontCardFragment(card);
     }
 
     private int getRandomCard() {
-        int random;
-        random = new Random().nextInt(cardsWorkingIteration.size());
-        return random;
+        Random random = new Random();
+        return random.nextInt(cardsWorkingIteration.size());
     }
 
     public void openFrontCardFragment(Card card) {

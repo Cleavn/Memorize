@@ -57,4 +57,9 @@ public class Category {
     public void setCategoryColor(int categoryColor){
         this.categoryColor = categoryColor;
     }
+
+    @Override
+    public String toString() {
+        return categoryName;
+    }
 }

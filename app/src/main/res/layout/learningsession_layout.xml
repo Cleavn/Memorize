@@ -36,15 +36,14 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <fragment
+    <RelativeLayout
         android:id="@+id/ls_fragmentcontainer"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_above="@+id/ls_buttons"
         android:layout_below="@+id/ls_timerlayout"
         android:layout_marginEnd="40dp"
-        android:layout_marginStart="40dp"
-        tools:layout="@layout/card_fragment_learningsession" />
+        android:layout_marginStart="40dp" />
 
     <RelativeLayout
         android:id="@+id/ls_buttons"

@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -267,9 +268,7 @@ public class MainActivity extends AppCompatActivity {
         lsStartBtn = lsDialog.findViewById(R.id.lsDialog_Btn);
 
         // fill spinner with data
-        categorynames = new ArrayList<>();
-        //TODO schleife für categorienamen
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categorynames);
+        ArrayAdapter<Category> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
 
@@ -300,11 +299,13 @@ public class MainActivity extends AppCompatActivity {
                     if(!hourSpinner.isSelected() && !minuteSpinner.isSelected()){
                         starttime = 0;
                     }
-
-                    myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
-                    myIntent.putExtra("Time", starttime);
-                    startActivity(myIntent);
+                    //TODO: set hours and minutes in time
+                    //starttime = ;
                 }
+                //TODO: if category has no cards -> pop error
+                myIntent.putExtra("CategoryID", categories.get(spinner.getSelectedItemPosition()).getId()); //TODO: Check if its the correct category
+                myIntent.putExtra("Time", starttime);
+                startActivity(myIntent);
             }
         });
         lsDialog.show();
