@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/fragmentBackground"
+    android:id="@+id/ls_CardView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#BF000000"
-    android:clickable="true" >
+    android:background="@drawable/my_border"
+    card_view:cardCornerRadius="15dp"
+    card_view:cardElevation="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/my_border"
-        card_view:cardCornerRadius="15dp"
-        card_view:cardElevation="5dp" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp" >
+        <ImageButton
+            android:id="@+id/closeCardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:elevation="6dp"
+            card_view:srcCompat="@drawable/ic_cancel_red" />
 
-            <ImageButton
-                android:id="@+id/closeCardButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/transparent"
-                android:elevation="6dp"
-                card_view:srcCompat="@drawable/ic_cancel_red" />
-
-            <TextView
-                android:id="@+id/qaText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:textSize="20sp"
-                android:textAlignment="center"
-                android:text="@string/qaText" />
-
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/qaText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/qaText"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

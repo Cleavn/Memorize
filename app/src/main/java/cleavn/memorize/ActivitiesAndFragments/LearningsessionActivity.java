@@ -1,5 +1,7 @@
 package cleavn.memorize.ActivitiesAndFragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,9 +10,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -27,11 +31,11 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
     public GestureDetector gestureDetector;
 
     private boolean mShowingBack;
-    int categoryId, cardid;
+    int categoryId, position;
     int timer;
 
     RelativeLayout timerLayout;
-    TextView qaText;
+    TextView lsTimer;
     Button correct, skip, wrong;
 
     @Override
@@ -40,13 +44,13 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         setContentView(R.layout.learningsession_layout);
 
         timerLayout = findViewById(R.id.ls_timerlayout);
-        qaText = findViewById(R.id.ls_qaText);
+        lsTimer = findViewById(R.id.ls_Timer);
         correct = findViewById(R.id.ls_true);
         skip = findViewById(R.id.ls_skip);
         wrong = findViewById(R.id.ls_false);
 
         categoryId = getIntent().getExtras().getInt("CategoryID");
-        timer = getIntent().getExtras().getInt("Time");
+        timer = getIntent().getExtras().getInt("Time"); // in ms
         cardsWorkingIteration = new ArrayList<>();
         this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
 
@@ -56,28 +60,78 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         cards = dbAdapter.getAllCardsFromCategory(categoryId);
         dbAdapter.close();
 
-        startLearningSession();
+        cardsWorkingIteration = cards;
+        nextCard();
 
-        //TODO: onClickListener for buttons
+        // timerlayout pauses the learningsession and shows menu
+        timerLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pauseLearningsession();
+            }
+        });
+
+        // correctbutton getsNext card and add +1 to statistics of current cardid
+        correct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: add +1 to statistics of current cardid
+                //cardsWorkingIteration.get(position).getId();
+
+                nextCard();
+            }
+        });
     }
 
-    private void startLearningSession() {
-        cardsWorkingIteration = cards;
+    private void nextCard() {
+        position = getRandom();
+        card = cardsWorkingIteration.get(position);
+        cardsWorkingIteration.remove(position);
 
-        cardid = getRandomCard();
-        //cardsWorkingIteration.remove(cardid);
+        Toast toast = Toast.makeText(getApplicationContext(), "listsize: " + cardsWorkingIteration.size(), Toast.LENGTH_LONG);
+        toast.show();
+        if(cardsWorkingIteration.size() == 0){
+            cardsWorkingIteration = cards;
+        }
 
-        card = cards.get(cardid);
         openFrontCardFragment(card);
     }
 
-    private int getRandomCard() {
+    private int getRandom() {
         Random random = new Random();
         return random.nextInt(cardsWorkingIteration.size());
     }
 
+    private void pauseLearningsession(){
+        //TODO: pause timer
+        //TODO: set gray overlay
+        //TODO: options menu - resume, show statistic, quit
+    }
+
+    private void quitLearningsession(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LearningsessionActivity.this);
+        builder.setTitle(R.string.quit_learningsession_title);
+        builder.setMessage("Do you really want to quit this Learningsession?");
+        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MyDbAdapter dbAdapter = new MyDbAdapter(LearningsessionActivity.this);
+                finish();
+                dialog.dismiss();
+            }
+        });
+        AlertDialog quitDialog = builder.create();
+        quitDialog.show();
+    }
+
     public void openFrontCardFragment(Card card) {
-        CardFragment frontFragment = CardFragment.newInstance(card, "front");
+        CardFragment frontFragment = CardFragment.newInstance(card, "front", this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack("FRONTCARD_FRAGMENT");
@@ -90,7 +144,7 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
             getSupportFragmentManager().popBackStackImmediate();
             mShowingBack = false;
         } else {
-            CardFragment backFragment = CardFragment.newInstance(card, "back");
+            CardFragment backFragment = CardFragment.newInstance(card, "back", this);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
             transaction.addToBackStack("BACKCARD_FRAGMENT");
@@ -103,5 +157,12 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
     @Override
     public void onFragmentInteraction(Uri uri) {
         onBackPressed();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //TODO: Stop time as long as dialog
+        //TODO: dialog
+        quitLearningsession();
     }
 }

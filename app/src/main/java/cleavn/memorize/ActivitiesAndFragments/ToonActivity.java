@@ -1,5 +1,6 @@
 package cleavn.memorize.ActivitiesAndFragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -42,7 +43,6 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
 
     private ArrayList<Category> categories;
     private ArrayList<Card> cards;
-    ArrayList<String> categorynames;
     public GestureDetector gestureDetector;
     private Card card;
 
@@ -130,7 +130,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                 new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "cardid: " + cards.get(position).getId(), Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getApplicationContext(), "position: " + cards.get(position).getId(), Toast.LENGTH_LONG);
                         toast.show();
                         card = cards.get(position);
                         openFrontCardFragment(card);
@@ -249,7 +249,6 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
         lsStartBtn = lsDialog.findViewById(R.id.lsDialog_Btn);
 
         // fill spinner with data
-        categorynames = new ArrayList<>();
         MyDbAdapter dbAdapter = new MyDbAdapter(ToonActivity.this);
         dbAdapter.open();
         categories = dbAdapter.getAllCategories();
@@ -288,9 +287,25 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                     //TODO: set hours and minutes in time
                     //starttime = ;
                 }
-                myIntent.putExtra("CategoryID", spinner.getSelectedItemId()); //TODO: Check if its the correct category
-                myIntent.putExtra("Time", starttime);
-                startActivity(myIntent);
+                // checks if category has cards
+                if(cards.size() == 0){
+                    // Error - no cards in category
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ToonActivity.this);
+                    builder.setTitle(R.string.error_learningsessiondialog_title);
+                    builder.setMessage("This Category has no Cards. \nPlease make sure to add Cards before starting the Learningsession.");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog errorDialog = builder.create();
+                    errorDialog.show();
+                }else{
+                    myIntent.putExtra("CategoryID", categories.get(spinner.getSelectedItemPosition()).getId()); //TODO: Check if its the correct category
+                    myIntent.putExtra("Time", starttime);
+                    startActivity(myIntent);
+                }
             }
         });
         lsDialog.show();
@@ -329,7 +344,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
      */
 
     public void openFrontCardFragment(Card card) {
-        CardFragment frontFragment = CardFragment.newInstance(card, "front");
+        CardFragment frontFragment = CardFragment.newInstance(card, "front", this);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.addToBackStack("FRONTCARD_FRAGMENT");
@@ -343,7 +358,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
             getSupportFragmentManager().popBackStackImmediate();
             mShowingBack = false;
         } else {
-            CardFragment backFragment = CardFragment.newInstance(card, "back");
+            CardFragment backFragment = CardFragment.newInstance(card, "back", this);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.setCustomAnimations(R.animator.card_flip_right_in, R.animator.card_flip_right_out, R.animator.card_flip_left_in, R.animator.card_flip_left_out);
             transaction.addToBackStack("BACKCARD_FRAGMENT");

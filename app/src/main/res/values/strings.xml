@@ -25,4 +25,6 @@
     <string name="splashtext">MemoQ</string>
     <string name="start">start</string>
     <string name="ls_dialog_titel">Start Learningsession</string>
+    <string name="quit_learningsession_title">Quit Learningsession</string>
+    <string name="error_learningsessiondialog_title">Error: No Cards</string>
 </resources>

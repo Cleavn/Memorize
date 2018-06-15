@@ -1,7 +1,6 @@
 package cleavn.memorize.ActivitiesAndFragments;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,14 +22,37 @@ public class CardFragment extends Fragment {
     // the fragment initialization parameters
     private static final String TEXT = "text";
     private String mQuestion;
+    private static ToonActivity toonActivity;
+    private static LearningsessionActivity learningsessionActivity;
+
+    View view;
 
     public CardFragment() {
         // Required empty public constructor
     }
 
-    public static CardFragment newInstance(Card card, String cardsite) {
+    public static CardFragment newInstance(Card card, String cardsite, ToonActivity toonActivity) {
         CardFragment fragment = new CardFragment();
         Bundle args = new Bundle();
+        CardFragment.toonActivity = toonActivity;
+
+        String text;
+
+        if (cardsite.equals("front")){
+            text = card.getQuestion();
+        } else {
+            text = card.getAnswer();
+        }
+
+        args.putString(TEXT, text);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static CardFragment newInstance(Card card, String cardsite, LearningsessionActivity learningsessionActivity) {
+        CardFragment fragment = new CardFragment();
+        Bundle args = new Bundle();
+        CardFragment.learningsessionActivity = learningsessionActivity;
 
         String text;
 
@@ -57,41 +79,59 @@ public class CardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.card_fragment, container, false);
+        if (toonActivity == getActivity()){
+            view = inflater.inflate(R.layout.card_fragment_layout, container, false);
+            RelativeLayout fragmentBackground = view.findViewById(R.id.fragmentBackground);
+            CardView cardview = view.findViewById(R.id.cardView);
+
+            // Click on background removes fragments
+            fragmentBackground.setSoundEffectsEnabled(false);
+            fragmentBackground.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    // pops backstack including last fragment instance
+                    getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                }
+            });
+
+            // onTouchListener for fragments TODO: Bug - background spins with card
+            cardview.setOnTouchListener(new View.OnTouchListener(){
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    toonActivity.gestureDetector.onTouchEvent(event);
+
+                    return true;
+                }
+            });
+        } else if(learningsessionActivity == getActivity()){
+            view = inflater.inflate(R.layout.card_fragment, container, false);
+            CardView ls_cardView = view.findViewById(R.id.ls_CardView);
+
+            ls_cardView.setOnTouchListener(new View.OnTouchListener(){
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    learningsessionActivity.gestureDetector.onTouchEvent(event);
+
+                    return true;
+                }
+            });
+        }
 
         TextView questionTextView = view.findViewById(R.id.qaText);
         ImageButton closeBtn = view.findViewById(R.id.closeCardButton);
-        RelativeLayout fragmentBackground = view.findViewById(R.id.fragmentBackground);
-        CardView cardview = view.findViewById(R.id.cardView);
 
         questionTextView.setText(mQuestion);
 
+        if(learningsessionActivity == getActivity()){
+            closeBtn.setVisibility(View.INVISIBLE);
+        }else{
+            closeBtn.setVisibility(View.VISIBLE);
+        }
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // pops backstack including last fragment instance
                 getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-
-        // Click on background removes fragments
-        fragmentBackground.setSoundEffectsEnabled(false);
-        fragmentBackground.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // pops backstack including last fragment instance
-                getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            }
-        });
-
-        // onTouchListener for fragments TODO: Bug - background spins with card
-        cardview.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                ToonActivity parentActivity = (ToonActivity) getActivity();
-                parentActivity.gestureDetector.onTouchEvent(event);
-
-                return true;
             }
         });
 

@@ -27,6 +27,7 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
+import cleavn.memorize.Objects.Card;
 import cleavn.memorize.Utils.CategoryAdapter;
 import cleavn.memorize.Utils.ColorPicker;
 import cleavn.memorize.Utils.MyDbAdapter;
@@ -36,7 +37,7 @@ import cleavn.memorize.R;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Category> categories;
-    ArrayList<String> categorynames;
+    private ArrayList<Card> cards;
 
     SwipeMenuListView listView;
     SwipeMenuCreator creator;
@@ -302,10 +303,29 @@ public class MainActivity extends AppCompatActivity {
                     //TODO: set hours and minutes in time
                     //starttime = ;
                 }
-                //TODO: if category has no cards -> pop error
-                myIntent.putExtra("CategoryID", categories.get(spinner.getSelectedItemPosition()).getId()); //TODO: Check if its the correct category
-                myIntent.putExtra("Time", starttime);
-                startActivity(myIntent);
+                // checks if category has cards
+                MyDbAdapter dbAdapter = new MyDbAdapter(MainActivity.this);
+                dbAdapter.open();
+                cards = dbAdapter.getAllCardsFromCategory(categories.get(spinner.getSelectedItemPosition()).getId());
+                dbAdapter.close();
+                if(cards.size() == 0){
+                    // Error - no cards in category
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setTitle(R.string.error_learningsessiondialog_title);
+                    builder.setMessage("This Category has no Cards. \nPlease make sure to add Cards before starting the Learningsession.");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog errorDialog = builder.create();
+                    errorDialog.show();
+                }else{
+                    myIntent.putExtra("CategoryID", categories.get(spinner.getSelectedItemPosition()).getId()); //TODO: Check if its the correct category
+                    myIntent.putExtra("Time", starttime);
+                    startActivity(myIntent);
+                }
             }
         });
         lsDialog.show();
