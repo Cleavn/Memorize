@@ -27,7 +27,7 @@ import cleavn.memorize.Utils.MyGestureListener;
 public class LearningsessionActivity extends AppCompatActivity implements CardFragment.OnFragmentInteractionListener {
 
     private Card card;
-    private ArrayList<Card> cards, cardsWorkingIteration;
+    private ArrayList<Card> cards, cardsIteration;
     public GestureDetector gestureDetector;
 
     private boolean mShowingBack;
@@ -51,7 +51,7 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
 
         categoryId = getIntent().getExtras().getInt("CategoryID");
         timer = getIntent().getExtras().getInt("Time"); // in ms
-        cardsWorkingIteration = new ArrayList<>();
+        cardsIteration = new ArrayList<>();
         this.gestureDetector = new GestureDetector(this, new MyGestureListener(this));
 
         // get cards for learningsession
@@ -60,7 +60,7 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         cards = dbAdapter.getAllCardsFromCategory(categoryId);
         dbAdapter.close();
 
-        cardsWorkingIteration = cards;
+        cardsIteration.addAll(cards);
         nextCard();
 
         // timerlayout pauses the learningsession and shows menu
@@ -71,13 +71,41 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
             }
         });
 
-        // correctbutton getsNext card and add +1 to statistics of current cardid
+        // correct-button getsNext card and add +1 to statistics of current cardid
         correct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO: add +1 to statistics of current cardid
-                //cardsWorkingIteration.get(position).getId();
+                //cardsIteration.get(position).getId();
 
+                if(cardsIteration.isEmpty()) {
+                    cardsIteration.addAll(cards);
+                }
+                nextCard();
+            }
+        });
+
+        // wrong-button getsNext card and add +1 to statistics of current cardid
+        wrong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: add +1 to statistics of current cardid
+                //cardsIteration.get(position).getId();
+
+                if(cardsIteration.isEmpty()) {
+                    cardsIteration.addAll(cards);
+                }
+                nextCard();
+            }
+        });
+
+        // skip-button getsNext card
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cardsIteration.isEmpty()) {
+                    cardsIteration.addAll(cards);
+                }
                 nextCard();
             }
         });
@@ -85,21 +113,15 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
 
     private void nextCard() {
         position = getRandom();
-        card = cardsWorkingIteration.get(position);
-        cardsWorkingIteration.remove(position);
-
-        Toast toast = Toast.makeText(getApplicationContext(), "listsize: " + cardsWorkingIteration.size(), Toast.LENGTH_LONG);
-        toast.show();
-        if(cardsWorkingIteration.size() == 0){
-            cardsWorkingIteration = cards;
-        }
+        card = cardsIteration.get(position);
+        cardsIteration.remove(position);
 
         openFrontCardFragment(card);
     }
 
     private int getRandom() {
         Random random = new Random();
-        return random.nextInt(cardsWorkingIteration.size());
+        return random.nextInt(cardsIteration.size());
     }
 
     private void pauseLearningsession(){
