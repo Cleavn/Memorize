@@ -75,6 +75,7 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         correct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //TODO: add +1 to statistics of current cardid
                 //cardsIteration.get(position).getId();
 
@@ -116,6 +117,7 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         card = cardsIteration.get(position);
         cardsIteration.remove(position);
 
+        //TODO: BUG - once flipped to back and use nextCard() two backsites are shown
         openFrontCardFragment(card);
     }
 
