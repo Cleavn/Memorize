@@ -145,7 +145,6 @@ public class LearningsessionActivity extends AppCompatActivity implements CardFr
         builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                MyDbAdapter dbAdapter = new MyDbAdapter(LearningsessionActivity.this);
                 finish();
                 dialog.dismiss();
             }
