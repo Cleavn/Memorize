@@ -227,7 +227,7 @@ public class ToonActivity extends AppCompatActivity implements CardFragment.OnFr
                 dbAdapter.deleteCard(cardId);
                 dbAdapter.close();
 
-                Toast.makeText(getApplicationContext(), "Card " + question + " deleted", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Card " + question + " deleted", Toast.LENGTH_SHORT).show();
                 getCardEntriesFromCategory(categoryId);
                 dialog.dismiss();
             }
